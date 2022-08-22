@@ -25,4 +25,11 @@ urlpatterns = [
     # Urls sale
     re_path('', include('sale.urls')),
 
+
+    # Routers
+    re_path('', include('product.routers')),
+    re_path('', include('sale.routers')),
+
+
+
 ]
