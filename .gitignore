@@ -111,6 +111,7 @@ env.bak/
 venv.bak/
 secret.json
 fbkey.json
+/secret.json/
 
 # Spyder project settings
 .spyderproject
