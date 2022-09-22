@@ -9,6 +9,10 @@ class Reader(models.Model):
     nationality = models.CharField("Nacionalidad", max_length=30)
     age = models.PositiveIntegerField(verbose_name="Edad", default=18)
 
+    class Meta:
+        verbose_name = "Lector"
+        verbose_name_plural = "Lectores"
+
     def __str__(self):
         return f"{self.name} {self.last_name}"
 
@@ -21,6 +25,10 @@ class Loan(models.Model):
         verbose_name="Fecha devolución", blank=True, null=True
     )
     returned = models.BooleanField(verbose_name="Devuelto")
+
+    class Meta:
+        verbose_name = "Prestamo"
+        verbose_name_plural = "Prestamos"
 
     def __str__(self):
         return self.book.title

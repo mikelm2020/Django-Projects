@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Listar Autores{% endblock title %}
+
+{% block content %}
+    <h1>Lista de autores</h1>
+
+    <p>
+        <form method="get">{% csrf_token %}
+            <input type="text" id="kword" name="kword" placeholder="Ingrese nombre">
+            <button type="submit">Consultar</button>
+        </form>
+    </p>
+
+    <ul>
+        
+        {% for author in authors_list %}
+            <li>{{author.name}} - {{author.last_name}} - {{author.nationality}} - {{author.age}}</li>
+        {% endfor %}
+            
+    </ul>
+{% endblock content %}
