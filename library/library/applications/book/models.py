@@ -1,23 +1,28 @@
 from django.db import models
 from applications.author.models import Author
 
-from .managers import BookManager
+from .managers import BookManager, CategoryManager
 
 
 class Category(models.Model):
     name = models.CharField("Categoría", max_length=30)
+
+    objects = CategoryManager()
 
     class Meta:
         verbose_name = "Categoría"
         verbose_name_plural = "Categorías"
 
     def __str__(self):
-        return self.name
+        return f"{self.id} - {self.name}"
 
 
 class Book(models.Model):
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, verbose_name="Categoría"
+        Category,
+        on_delete=models.CASCADE,
+        verbose_name="Categoría",
+        related_name="category_book",
     )
     authors = models.ManyToManyField(Author, verbose_name="Autor")
     title = models.CharField("Titulo", max_length=100)

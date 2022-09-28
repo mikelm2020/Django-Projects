@@ -8,6 +8,7 @@ admin.site.register(Category)
 class AdminBook(admin.ModelAdmin):
 
     list_display = (
+        "id",
         "category",
         "title",
         "release_date",

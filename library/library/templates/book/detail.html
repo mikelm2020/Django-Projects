@@ -1,0 +1,16 @@
+<h1>Detalle del Libro</h1>
+
+<p>{{book.title}}</p>
+<p>{{book.release_date}}</p>
+<p>{{book.category}}</p>
+
+<h3>Autores</h3>
+<ul>
+    
+    {% for author in book.authors.all %}
+        <li>{{author}}</li>
+    {% endfor %}
+        
+</ul>
+
+

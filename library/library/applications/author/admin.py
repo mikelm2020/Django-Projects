@@ -7,6 +7,7 @@ from .models import Author
 class AdminAuthor(admin.ModelAdmin):
 
     list_display = (
+        "id",
         "name",
         "last_name",
         "nationality",

@@ -8,6 +8,9 @@
     <p>
         <form method="get">{% csrf_token %}
             <input type="text" id="kword" name="kword" placeholder="Ingrese nombre">
+
+            <input type="date" name="initial_date" id="initial_date">
+            <input type="date" name="final_date" id="final_date">
             <button type="submit">Consultar</button>
         </form>
     </p>

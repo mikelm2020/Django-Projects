@@ -1,6 +1,7 @@
 from django.db import models
 
 from applications.book.models import Book
+from applications.loan.managers import LoanManager
 
 
 class Reader(models.Model):
@@ -19,12 +20,16 @@ class Reader(models.Model):
 
 class Loan(models.Model):
     reader = models.ForeignKey(Reader, on_delete=models.CASCADE, verbose_name="Lector")
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name="Libro")
+    book = models.ForeignKey(
+        Book, on_delete=models.CASCADE, verbose_name="Libro", related_name="book_loan"
+    )
     loan_date = models.DateField(verbose_name="Fecha prestámo")
     return_date = models.DateField(
         verbose_name="Fecha devolución", blank=True, null=True
     )
     returned = models.BooleanField(verbose_name="Devuelto")
+
+    objects = LoanManager()
 
     class Meta:
         verbose_name = "Prestamo"
