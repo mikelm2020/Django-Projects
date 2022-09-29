@@ -47,10 +47,10 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.postgres",
 ]
 
 LOCAL_APPS = [
-    'applications.core',
     'applications.author',
     'applications.book',
     'applications.loan',

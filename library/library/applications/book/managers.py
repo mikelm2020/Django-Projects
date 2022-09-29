@@ -1,12 +1,23 @@
 from django.db import models
 from django.db.models import Count
+from django.contrib.postgres.search import TrigramSimilarity
 
 
 class BookManager(models.Manager):
     def find_books(self, kword):
         result = self.filter(
-            title__icontains=kword, release_date__range=("2000-01-01", "2002-01-01")
+            title__icontains=kword
         )
+
+        return result
+
+    def find_full_text_books(self, kword):
+        if kword:
+            result = self.filter(
+                title__trigram_similar=kword
+            )
+        else:
+            result = self.all()[:10]
 
         return result
 

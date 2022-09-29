@@ -1,4 +1,8 @@
 from django.db import models
+from django.db.models.signals import post_save
+
+from PIL import Image
+
 from applications.author.models import Author
 
 from .managers import BookManager, CategoryManager
@@ -29,6 +33,7 @@ class Book(models.Model):
     release_date = models.DateField("Fecha lanzamiento")
     front_page = models.ImageField("Portada", upload_to="front_page")
     visits = models.PositiveIntegerField(verbose_name="Visitas")
+    stock = models.PositiveIntegerField(default=20)
 
     objects = BookManager()
 
@@ -38,3 +43,12 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+def optimize_image(sender, instance, **kwargs):
+    if instance.front_page:
+        front_page = Image.open(instance.front_page.path)
+        front_page.save(instance.front_page.path, quality=20, optimize=True)
+
+  
+
+post_save.connect(optimize_image, sender=Book)

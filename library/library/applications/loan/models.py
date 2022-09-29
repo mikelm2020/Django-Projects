@@ -1,21 +1,16 @@
 from django.db import models
+from django.db.models.signals import post_delete
 
 from applications.book.models import Book
-from applications.loan.managers import LoanManager
+from applications.author.models import Person
+from .managers import LoanManager
+from .signals import update_book_stock
 
 
-class Reader(models.Model):
-    name = models.CharField("Nombre", max_length=50)
-    last_name = models.CharField("Apellido", max_length=50)
-    nationality = models.CharField("Nacionalidad", max_length=30)
-    age = models.PositiveIntegerField(verbose_name="Edad", default=18)
-
+class Reader(Person):
     class Meta:
         verbose_name = "Lector"
         verbose_name_plural = "Lectores"
-
-    def __str__(self):
-        return f"{self.name} {self.last_name}"
 
 
 class Loan(models.Model):
@@ -35,5 +30,15 @@ class Loan(models.Model):
         verbose_name = "Prestamo"
         verbose_name_plural = "Prestamos"
 
+    def save(self, *args, **kwargs):
+
+        self.book.stock = self.book.stock - 1
+        self.book.save()
+
+        return super(Loan, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.book.title
+
+
+post_delete.connect(update_book_stock, sender=Loan)

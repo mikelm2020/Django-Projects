@@ -11,4 +11,6 @@ urlpatterns = [
         name="books_by_category",
     ),
     path("book-detail/<pk>/", views.BookDetailView.as_view(), name="book_detail"),
+    path("books-trg/", views.BooksListViewTrg.as_view(), name="books_trg"),
+
 ]
